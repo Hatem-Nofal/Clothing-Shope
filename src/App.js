@@ -6,10 +6,10 @@ import Header from "./components/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { auth, createUserProfieDocument } from "./firebase/firebase.utils";
 import "./App.css";
-
 class App extends React.Component {
   constructor() {
     super();
+
     this.state = {
       currentUser: null
     };
@@ -20,18 +20,12 @@ class App extends React.Component {
       if (userAuth) {
         const userRef = await createUserProfieDocument(userAuth);
         userRef.onSnapshot(snapShot => {
-          this.setState(
-            {
-              cuttrntUser: {
-                id: snapShot.id,
-                ...snapShot.data()
-              }
-            },
-            () => {
-              console.log(this.state);
+          this.setState({
+            cuttrntUser: {
+              id: snapShot.id,
+              ...snapShot.data()
             }
-          );
-          console.log(this.state);
+          });
         });
       }
       this.setState({ currentUser: userAuth });
